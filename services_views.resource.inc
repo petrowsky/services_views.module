@@ -23,7 +23,7 @@
  * @return
  *  Array. The views return.
  */
-function services_views_retrieve($view_name, $display_id = 'default', $offset = 0, $limit = 10, $args = array(), $theme_result = FALSE) {
+function services_views_retrieve($view_name, $display_id = 'default', $args = array(), $offset = 0, $limit = 10, $theme_result = FALSE) {
   $result = array();
   $view = views_get_view($view_name);
 
