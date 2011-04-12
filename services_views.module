@@ -1,6 +1,4 @@
 <?php
-// $Id: services.module,v 1.8.2.88.2.6 2009/09/05 13:57:58 marcingy Exp $
-
 /**
  * @file
  *  Provides a generic but powerful API for web services.
@@ -10,21 +8,23 @@
  * Implementation of hook_views_api().
  */
 function services_views_views_api() {
-  return array('api' => 2.0);
+  return array(
+    'api' => 2.0,
+  );
 }
 
 /**
  * Implementation of hook_services_resources().
  */
 function services_views_services_resources() {
-  $resources = array();
+  $resources['views'] = array();
 
-  $resource = array();
-  $resource['retrieve'] = array(
+  $resources['views']['retrieve'] = array(
     'help' => 'Retrieves a view.',
     'file' => array(
-      'file' => 'resource.inc',
+      'type' => 'inc',
       'module' => 'services_views',
+      'name' => 'services_views.resource',
     ),
     'callback' => 'services_views_retrieve',
     'access callback' => 'services_views_access',
@@ -80,7 +80,6 @@ function services_views_services_resources() {
       ),
     ),
   );
-  $resources['views'] = $resource;
 
   return $resources;
 }

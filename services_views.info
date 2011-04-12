@@ -1,6 +1,5 @@
-; $Id$
-name = Services views
-description = Build service endpoints with views.
+name = Services Views
+description = Build service endpoints with Views.
 package = Services
 core = 6.x
 php = 5.x

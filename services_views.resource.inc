@@ -1,6 +1,4 @@
 <?php
-// $Id$
-
 /**
  * @file
  * Callbacks for services module resource hooks.
