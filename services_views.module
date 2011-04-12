@@ -99,8 +99,14 @@ function services_views_access($op = 'view', $args = array()) {
     case 'view':
       $view = views_get_view($args['view_name']);
       if (empty($view)) {
-        return FALSE;
+        return services_error(t('View @view could not be found', array('@view' => $args['view_name'])), 404);
       }
-      return $view->access('default');
+      if (!isset($view->display[$args['display_id']])) {
+        return services_error(t('Display @display on view @view could not be found', array(
+          '@display' => $args['display_id'],
+          '@view' => $args['view_name'],
+        )), 404);
+      }
+      return $view->access($args['display_id']);
   }
 }
