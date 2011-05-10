@@ -30,14 +30,20 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
   // Put all arguments and then execute.
   $view->set_arguments($args, FALSE);
   $view->set_offset($offset);
-  // If offset is set we can't have a user pager.
-  if (empty($offset)) {
-    $view->set_use_pager(TRUE);
-    $view->set_items_per_page($limit);
+  // Support for Views 2
+  if (method_exists($view, 'set_use_pager')) {
+    // If offset is set we can't have a user pager.
+    if (empty($offset)) {
+      $view->set_use_pager(TRUE);
+      $view->set_items_per_page($limit);
+    }
+    else {
+      // Disable the user pager.
+      $view->set_use_pager(FALSE);
+    }
   }
   else {
-    // Disable the user pager.
-    $view->set_use_pager(FALSE);
+    $view->set_items_per_page($limit);
   }
   if (!$theme_result) {
     $view->set_display($display_id);
