@@ -17,13 +17,13 @@
  *   Integer (optional). A limit integer for paging.
  * @param $args
  *   Array (optional). A list of arguments to pass to the view.
- * @param $theme_result
- *   Bool. Whether to return the raw data results or style the results.
+ * @param $return_type
+ *   String (optional). Whether to return the raw data results (FALSE), the entire views object ('view') or themed results ('theme').
  *
  * @return
  *  Array. The views return.
  */
-function services_views_retrieve($view_name, $display_id = 'default', $args = array(), $offset = 0, $limit = 10, $theme_result = FALSE) {
+function services_views_retrieve($view_name, $display_id = 'default', $args = array(), $offset = 0, $limit = 10, $return_type = FALSE) {
   $result = array();
   $view = views_get_view($view_name);
 
@@ -45,7 +45,7 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
   else {
     $view->set_items_per_page($limit);
   }
-  if (!$theme_result) {
+  if (empty($return_type)) {
     $view->set_display($display_id);
     $view->execute();
     $result = $view->result;
@@ -59,6 +59,11 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
       }
       $result = $nodes;
     }
+  }
+  elseif ($return_type == 'view') {
+    $view->set_display($display_id);
+    $view->execute();
+    return $view;
   }
   else {
     // We want to keep the result an array.
