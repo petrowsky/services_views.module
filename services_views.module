@@ -30,7 +30,6 @@ function services_views_services_resources() {
     'access callback' => 'services_views_access',
     'access arguments' => array('view'),
     'access arguments append' => TRUE,
-    'access arguments' => array('access content'),
     'args' => array(
       'view_name' => array(
         'name' => 'view_name',
