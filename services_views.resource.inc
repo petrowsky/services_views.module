@@ -51,6 +51,7 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
   }
   if (empty($return_type)) {
     $view->set_display($display_id);
+    $view->pre_execute();
     $view->execute();
     $result = $view->result;
 
