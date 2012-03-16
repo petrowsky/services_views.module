@@ -63,6 +63,29 @@ function services_views_retrieve($view_name, $display_id = 'default', $args = ar
       }
       $result = $nodes;
     }
+    elseif ($row_plugin == 'fields') {
+      $items = array();
+      foreach ($view->result as $row) {
+        $item = new stdClass();
+        foreach ($view->field as $field_id => $field) {
+          if (!empty($field->options['label'])) {
+            $field_label = strtolower($field->options['label']);
+          }
+          elseif ($field->field_alias) {
+            $field_label = $field->field_alias;
+          }
+          else {
+            $field_label = $field_id;
+          }
+          $field->pre_render(array($row));
+          $item->$field_label = $field->render($row);
+        }
+        $items[] = $item;
+      }
+      if ($items) {
+        $result = $items;
+      }
+    }
   }
   elseif ($return_type == 'view') {
     $view->set_display($display_id);
