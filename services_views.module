@@ -90,7 +90,8 @@ function services_views_services_resources() {
   );
 
   // Retrieve all views that have "services" display.
-  $results = db_query('SELECT vv.name, vd.id FROM {views_display} AS vd LEFT JOIN {views_view} AS vv ON vd.vid = vv.vid WHERE vd.display_plugin = :display_name', array(':display_name' => 'services'))->fetchAll();
+  $results = array();
+  $results[] = db_fetch_object(db_query("SELECT vv.name, vd.id FROM {views_display} AS vd LEFT JOIN {views_view} AS vv ON vd.vid = vv.vid WHERE vd.display_plugin = 'services'" ));
   foreach ($results as $result) {
     $view_name = $result->name;
     $view_display = $result->id;
